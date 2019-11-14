@@ -183,7 +183,7 @@ storiesOf("InterviewerList", module)
   ))
   .add("Create", () => (
     <Form
-      name="Brian Murray"
+      name=""
       interviewers={interviewers}
       interviewer={0}
       onSave={action("onSave")}
