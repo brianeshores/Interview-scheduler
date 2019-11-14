@@ -183,9 +183,16 @@ storiesOf("InterviewerList", module)
   ))
   .add("Create", () => (
     <Form
-      name={props.name}
+      name="Brian Murray"
       interviewers={interviewers}
-      interviewer={props.value}
+      interviewer={0}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+    />
+  ))
+  .add("Edit", () => (
+    <Form
+      interviewers={interviewers}
       onSave={action("onSave")}
       onCancel={action("onCancel")}
     />
