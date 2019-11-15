@@ -1,26 +1,9 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
 
 const appointments = [
   {
@@ -41,11 +24,11 @@ const appointments = [
   },
   {
     id: 3,
-    time: "8pm",
+    time: "2pm",
   },
   {
-    id: 5,
-    time: "11am",
+    id: 4,
+    time: "3pm",
     interview: {
       student: "Brian Murray",
       interviewer: {
@@ -56,8 +39,8 @@ const appointments = [
     }
   },
   {
-    id: 2,
-    time: "8am",
+    id: 5,
+    time: "4pm",
     interview: {
       student: "Alex Bell",
       interviewer: {
@@ -71,11 +54,25 @@ const appointments = [
 
 
 export default function Application(props) {
-  const [day, setDay] = useState("Monday");
+  const [day, setDay] = useState();
+  const [days, setDays] = useState([])
+  
+  useEffect(() => {
+    axios
+      .get("/api/days")
+      .then((response) => {
+        setDays(response.data)
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        console.log(error.response.data);
+      });
+  });
+  
   const printAppointments = appointments.map((appointment) => 
     <Appointment
-      key={appointment.id}
-      {...appointment}
+      key={appointment.id}{...appointment}
     />
   )
   return (
