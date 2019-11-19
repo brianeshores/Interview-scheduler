@@ -31,10 +31,8 @@ export default function Application(props) {
   const appointmentArray = getAppointmentsForDay(state, state.day);
 
   const printAppointments = appointmentArray.map((appointment) => {
-    let interview = {};
-    if(appointment.interview) {
-      interview = getInterview(state, appointment.interview);
-    }
+    console.log("appointment: ", appointment)
+      const interview = getInterview(state, appointment.interview);
     
     return (
       <Appointment

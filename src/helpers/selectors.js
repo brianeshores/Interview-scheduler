@@ -15,11 +15,9 @@ export function getAppointmentsForDay(state, day) {
 }
 
 export function getInterview(state, interview) {
-  const interviewerObj = {};
   const interviewObj = {};
-  console.log("interview", interview)
-  if(interview === null) {
-    return null;
+  if(!interview) {
+    return null
   } else {
     interviewObj.student = interview.student;
     interviewObj.interviewer = state.interviewers[`${interview.interviewer}`];
