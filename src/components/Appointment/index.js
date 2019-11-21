@@ -25,7 +25,16 @@ export default function Appointment(props) {
     back();
   }
 
-  console.log("mode:", mode)
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    props.bookInterview(props.id, interview)
+    // return axios.put(`http://localhost:8001/api/appointments/${id}`)
+    transition(SHOW)
+  }
+
   return (
     <article className="appointment">
       <Header time={props.time}/>
@@ -45,6 +54,7 @@ export default function Appointment(props) {
         name={""}
         interviewers={props.interviewers}
         onCancel={onCancel}
+        onSave={save}
       />
       )}
     </article>

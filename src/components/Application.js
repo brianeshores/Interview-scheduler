@@ -17,6 +17,24 @@ export default function Application(props) {
   const setDay = day => {
     setState({ ...state, day });
   }
+
+  function bookInterview(id, interview) {
+    console.log("BOOK INTERVIEW LOG", id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({
+      ...state, 
+      appointments
+    })
+  }
   
   useEffect(() => {
     Promise.all([Promise.resolve(axios.get("/api/days")),
@@ -37,12 +55,13 @@ export default function Application(props) {
     
     return (
       <Appointment
-      key={appointment.id}
-      id={appointment.id}
-      time={appointment.time}
-      interview={interview}
-      interviewers={interviewersArray}
-    />
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+        interviewers={interviewersArray}
+        bookInterview={bookInterview}
+      />
     )
   })
   return (
