@@ -4,6 +4,7 @@ import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 import useVisualMode from "hooks/useVisualMode.js";
 import Form from "components/Appointment/Form";
+import Status from "components/Appointment/Status";
 
 import "components/Appointment/styles.scss";
 
@@ -11,6 +12,7 @@ export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
+  const SAVING = "SAVING";
 
 
   const { mode, transition, back } = useVisualMode(
@@ -25,14 +27,16 @@ export default function Appointment(props) {
     back();
   }
 
-  function save(name, interviewer) {
+  function save(name, interviewer, cb) {
+    transition(SAVING);
     const interview = {
       student: name,
       interviewer
     };
     props.bookInterview(props.id, interview)
-    // return axios.put(`http://localhost:8001/api/appointments/${id}`)
-    transition(SHOW)
+    if(interview !== null) {
+      transition(SHOW);
+    }
   }
 
   return (
@@ -56,6 +60,11 @@ export default function Appointment(props) {
         onCancel={onCancel}
         onSave={save}
       />
+      )}
+      {mode === SAVING && (
+        <Status
+          message={props.message}
+        />
       )}
     </article>
   )
