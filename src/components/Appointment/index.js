@@ -26,10 +26,6 @@ export default function Appointment(props) {
     transition(CREATE);
   }
 
-  // function onCancel() {
-  //   back();
-  // }
-
   function save(name, interviewer, cb) {
     transition(SAVING);
     const interview = {
@@ -57,7 +53,7 @@ export default function Appointment(props) {
       <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer.name}
-        onCancel={cancelInterview}
+        onCancel={() => transition(CONFIRM)}
       />
       )}
       {mode === CREATE && (
@@ -75,6 +71,12 @@ export default function Appointment(props) {
       )}
       {mode === DELETING && (
         <Status deleting={DELETING}/>
+      )}
+      {mode === CONFIRM && (
+        <Confirm 
+          onDelete={cancelInterview}
+          onCancel={() => transition(SHOW)}
+        />
       )}
     </article>
   )
