@@ -18,23 +18,16 @@ export default function Application(props) {
     setState({ ...state, day });
   }
 
+
   function bookInterview(id, interview) {
-    console.log("BOOK INTERVIEW LOG", props.interview);
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
-    axios.put(`http://localhost:8001/api/appointments/${id}`,{interview}).then((data) => {
-      setState({
-        ...state, 
-        appointments
-      })
+    return axios.put("http://localhost:8001/api/appointments/"+id, 
+    {interview}).then( data => {
+      setState((prev) => {
+      return (
+        {...prev,
+          appointments:{...prev.appointments, [id]: {
+        ...prev.appointments[id], interview:interview}}}
+        )})
     })
   }
   
@@ -54,7 +47,8 @@ export default function Application(props) {
 
   const printAppointments = appointmentArray.map((appointment) => {
       const interview = getInterview(state, appointment.interview);
-    
+      console.log("intervieweee", interview)
+
     return (
       <Appointment
         key={appointment.id}

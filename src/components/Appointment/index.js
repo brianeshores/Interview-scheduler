@@ -33,10 +33,7 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    props.bookInterview(props.id, interview)
-    if(interview !== null) {
-      transition(SHOW);
-    }
+    props.bookInterview(props.id, interview).then( () => transition(SHOW))
   }
 
   return (

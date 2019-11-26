@@ -28,14 +28,13 @@ export function getInterviewersByDay(state, day) {
   
   let mapDay = findDay.map(obj => obj.interviewers)[0]
   const interviewers= mapDay.map(id => state.interviewers[id])
-  console.log("interviewers:", interviewers)
   return interviewers
 }
 
 export function getInterview(state, interview) {
   const interviewObj = {};
   if(!interview) {
-    return null
+    interview = null;
   } else {
     interviewObj.student = interview.student;
     interviewObj.interviewer = state.interviewers[`${interview.interviewer}`];
