@@ -16,6 +16,7 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const CONFIRM = "CONFIRM";
   const DELETING = "DELETING";
+  const EDIT = "EDIT";
 
 
   const { mode, transition, back } = useVisualMode(
@@ -24,6 +25,10 @@ export default function Appointment(props) {
 
   function onAdd() {
     transition(CREATE);
+  }
+
+  function onCancel(){
+    back()
   }
 
   function save(name, interviewer, cb) {
@@ -45,24 +50,25 @@ export default function Appointment(props) {
     <article className="appointment">
       <Header time={props.time}/>
         {mode === EMPTY && <Empty 
-          onAdd={onAdd} 
-          mode={mode}
-          replace={"true"}
-        />}
-        {mode === SHOW && (
-      <Show
-        student={props.interview.student}
-        interviewer={props.interview.interviewer.name}
-        onCancel={() => transition(CONFIRM)}
-      />
-      )}
+        onAdd={onAdd} 
+        mode={mode}
+        replace={"true"}
+      />}
       {mode === CREATE && (
-      <Form
-        name={""}
-        interviewers={props.interviewers}
-        onCancel={cancelInterview}
-        onSave={save}
-      />
+        <Form
+          name={""}
+          interviewers={props.interviewers}
+          onCancel={onCancel}
+          onSave={save}
+        />
+      )}
+      {mode === SHOW && (
+        <Show
+          student={props.interview && props.interview.student}
+          interviewer={props.interview && props.interview.interviewer.name}
+          onCancel={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
+        />
       )}
       {mode === SAVING && (
         <Status
@@ -76,6 +82,15 @@ export default function Appointment(props) {
         <Confirm 
           onDelete={cancelInterview}
           onCancel={() => transition(SHOW)}
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+          name={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          onCancel={onCancel}
+          onSave={save}
+          interviewers={props.interviewers}
         />
       )}
     </article>
