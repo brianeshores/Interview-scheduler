@@ -1,6 +1,5 @@
-import React, { useReducer, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import axios from "axios"
-import {getAppointmentsForDay, } from "helpers/selectors"
 import reducer from "../reducer/application"
 
 let daysURL = "/api/days"

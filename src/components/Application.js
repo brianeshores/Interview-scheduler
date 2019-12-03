@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
@@ -19,7 +18,7 @@ export default function Application(props) {
   const interviewersArray = getInterviewersByDay(state, state.day);
 
   const printAppointments = appointmentArray.map((appointment) => {
-      const interview = getInterview(state, appointment.interview);
+    const interview = getInterview(state, appointment.interview);
 
     return (
       <Appointment

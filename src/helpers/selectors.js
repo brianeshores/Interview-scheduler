@@ -2,8 +2,7 @@ export function getAppointmentsForDay(state, day) {
   if (!state.days.length){
     return [];
   }
-  console.log("state ", state.days)
-  console.log("day ", day)
+
   let findDay = state.days.filter(Day => Day.name === day)
   
   if(!findDay.length) {
